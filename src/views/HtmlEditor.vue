@@ -124,7 +124,7 @@ export default {
 }
 
 .code-coder {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   right: 0;
   bottom: 0;

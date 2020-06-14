@@ -1,5 +1,5 @@
 <template>
-  <div class="flex">
+  <div id="flex">
     <a href="#0" class="bttn" :style="innerstyle">
       <slot></slot>
     </a>
@@ -10,7 +10,7 @@
 export default {
   name: 'RouterButton',
   props: {
-    innerstyle: String,
+    innerstyle: Object,
   },
 };
 </script>
@@ -23,44 +23,43 @@ export default {
   --animation: 0.3s all ease;
 }
 
-*,
-*::before,
-*::after {
+#flex *,
+#flex *::before,
+#flex *::after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-a {
+#flex a {
   color: #333;
   text-decoration: none;
   transition: var(--animation);
 }
-a:hover {
+#flex a:hover {
   color: var(--primary);
 }
-a:focus {
+#flex a:focus {
   text-decoration: none;
 }
-a:active {
+#flex a:active {
   color: #fff;
 }
 body {
-  padding: 0px 20px;
   margin: 0;
   font-family: var(--font);
   background: #f4f5ee;
   -webkit-font-smoothing: antialiased;
 }
 
-.flex {
+#flex {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.bttn {
+#flex .bttn {
   width: 100px;
   height: 100px;
   line-height: 100px;
@@ -70,7 +69,7 @@ body {
   font-weight: bold;
   position: relative;
 }
-.bttn:after {
+#flex .bttn:after {
   transition: var(--animation);
   content: '';
   position: absolute;
@@ -82,12 +81,12 @@ body {
   border: 3px solid var(--primary);
 }
 
-.bttn:hover:after {
+#flex .bttn:hover:after {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
-.bttn:before {
+#flex .bttn:before {
   content: '';
   position: absolute;
   border-radius: 3px;
@@ -101,15 +100,15 @@ body {
   z-index: -1;
 }
 
-.bttn:active {
+#flex .bttn:active {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-.bttn:active:before {
+#flex .bttn:active:before {
   background-color: var(--secondar);
 }
 
-.bttn:active:after {
+#flex .bttn:active:after {
   border-color: var(--secondary);
 }
 </style>

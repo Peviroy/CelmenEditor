@@ -1048,6 +1048,18 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@joe_kerr/stackthemmodals@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@joe_kerr/stackthemmodals/-/stackthemmodals-1.0.7.tgz#1572af7a04f136dc0ed782e04b4c0a8c2e546c91"
+  integrity sha512-ZugSG2FVrkxTRfFPR9Z0fNg3BPJCCid4mpSq2qpdedR6NooilWkdLHG0YuXfIW5LVgBsya+uIXhYRC00lyWSiw==
+
+"@joe_kerr/vue-native-menubar@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@joe_kerr/vue-native-menubar/-/vue-native-menubar-0.1.1.tgz#60ab345f60239e27a3acb0743f5366e8d7d8b607"
+  integrity sha512-48rCaDEP6EhcYKnPDXsjWB0qtT5reL33QY6oiC5afN3dJUTNJl2hFc0TXOsStVd+g0ahpd6Gyu3wdxmaEz+XjA==
+  dependencies:
+    "@joe_kerr/stackthemmodals" "^1.0.7"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

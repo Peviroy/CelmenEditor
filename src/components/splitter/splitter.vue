@@ -33,7 +33,7 @@
     <div class="right-pane code-splitter-pane" :style="{ width: 100 - percent + '%', minWidth: rightMinWidth + 'px' }">
       <slot name="right-pane"></slot>
     </div>
-    <div class="code-spliter-inner-modal" v-if="active">这是做甚</div>
+    <div class="code-spliter-inner-modal" v-if="active"></div>
   </div>
 </template>
 

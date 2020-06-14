@@ -1,0 +1,26 @@
+{
+  "menuData": [
+    {
+      "label": "File",
+      "submenu": [
+        { "label": "Open...", "accelerator": "Ctrl+O" },
+        { "label": "Save as", "submenu": [{ "label": "xml" }, { "label": "json" }, { "label": "csv" }] },
+        { "label": "Quit", "accelerator": "Ctrl+Q" }
+      ]
+    },
+    {
+      "label": "Edit",
+      "submenu": [
+        { "label": "Cut", "accelerator": "Ctrl+X" },
+        { "label": "Copy", "accelerator": "Ctrl+C" },
+        { "label": "Paste", "accelerator": "Ctrl+V" },
+        { "label": "Search...", "accelerator": "Ctrl+F" }
+      ]
+    },
+    { "label": "Help", "submenu": [{ "label": "About" }] },
+    {
+      "label": "Router",
+      "submenu": [{ "label": "route-Home" }, { "label": "route-About" }, { "label": "route-Editor" }]
+    }
+  ]
+}

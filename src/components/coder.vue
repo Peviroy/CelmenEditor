@@ -165,14 +165,12 @@ export default {
 }
 
 .coder-editor__label .file-info,
-
 .coder-editor__label .file-info {
   display: flex;
   justify-content: center;
 }
 
-
-.coder-editor__label .file-info .file-info-icon{
+.coder-editor__label .file-info .file-info-icon {
   height: 25px;
   margin: 4px;
 }
@@ -195,5 +193,6 @@ export default {
   height: calc(100% - 32px);
   text-align: left;
   font-size: 16px;
+  z-index: 0;
 }
 </style>
