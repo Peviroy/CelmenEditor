@@ -1,18 +1,21 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="../assets/logo.png" />
+
+    <router-link to="/fronter" :style="{'pointer-events':'none','cursor':'default'}">
+      <router-button :innerstyle="{'pointer-events':'auto','cursor':'pointer'}">Editor</router-button>
+    </router-link>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import RouterButton from '@/components/RouterButton.vue';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    RouterButton,
   },
 };
 </script>

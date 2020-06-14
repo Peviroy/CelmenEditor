@@ -13,6 +13,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }], // electron being devDep rather than Dep
     semi: ['off', 'always'],
+    'space-before-function-paren': ['error', 'never'],
+    'max-len': ['error', { code: 140 }],
   },
   overrides: [
     {
