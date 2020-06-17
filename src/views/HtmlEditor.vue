@@ -77,7 +77,7 @@ export default {
       console.log('receivemessage', message);
       console.log('receivevalue', val);
 
-      if (type === 'html') {
+      if (type === 'text/html') {
         this.html_value = val;
       } else if (type === 'javascript') {
         this.js_value = val;
@@ -111,6 +111,7 @@ export default {
                 </body>
               </html>
             `;
+      console.log(template);
       return template;
     },
   },

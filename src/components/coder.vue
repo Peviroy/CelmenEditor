@@ -45,10 +45,35 @@ export default {
 
   data() {
     return {
-      editorOptions: {
+      kindWrapper: '',
+      editorOptions: this.getEditorOption(),
+      label_height: 30,
+    };
+  },
+
+  methods: {
+    onEditorReady(editor) {
+      console.log('the editor is readied!', editor);
+    },
+    onEditorFocus(editor) {
+      console.log('the editor is focus!', editor);
+    },
+    onEditorCodeChange(newCode) {
+      // console.log('this is new code', newCode);
+      // console.log('this is type', editorType);
+      // this.code = newCode;
+      const editorType = this.kindWrapper;
+
+      this.$emit('change', [newCode, editorType]);
+    },
+    getEditorOption() {
+      console.log('applyed');
+
+      this.kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
+      return {
         // codemirror options
         tabSize: 2,
-        mode: 'text/html',
+        mode: this.kindWrapper,
         theme: 'material',
 
         lineNumbers: true,
@@ -108,25 +133,7 @@ export default {
         // hintOptions: {
         //   schemaInfo: null
         // }
-      },
-      label_height: 30,
-    };
-  },
-
-  methods: {
-    onEditorReady(editor) {
-      console.log('the editor is readied!', editor);
-    },
-    onEditorFocus(editor) {
-      console.log('the editor is focus!', editor);
-    },
-    onEditorCodeChange(newCode) {
-      // console.log('this is new code', newCode);
-      // console.log('this is type', editorType);
-      // this.code = newCode;
-      const editorType = this.kind;
-
-      this.$emit('change', [newCode, editorType]);
+      };
     },
   },
   computed: {
@@ -137,9 +144,21 @@ export default {
       return this.$refs.myEditor.editor;
     },
   },
+  beforemounted() {
+    // console.log('this is current editor object', this.editor)
+    // you can use this.editor to do something...
+    console.log(this.kindWrapper);
+    this.kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
+  },
   mounted() {
     // console.log('this is current editor object', this.editor)
     // you can use this.editor to do something...
+    console.log(this.kindWrapper);
+    this.kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
+  },
+  created() {
+    console.log(this.kindWrapper);
+    this.kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
   },
 };
 </script>

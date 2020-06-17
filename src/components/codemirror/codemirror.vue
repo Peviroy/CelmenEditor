@@ -7,22 +7,19 @@ import CodeMirror from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 
-// import 'codemirror/mode/htmlmixed/htmlmixed.js' // XML, JS, CSS
 import 'codemirror/mode/htmlembedded/htmlembedded.js';
 import 'codemirror/mode/css/css.js';
-// import 'codemirror/mode/xml/xml.js' // XML
-// import 'codemirror/mode/meta.js' // META
+import 'codemirror/mode/javascript/javascript.js';
 
 import 'codemirror/addon/fold/foldgutter.css';
 import 'codemirror/addon/fold/foldgutter.js';
-// import 'codemirror/addon/fold/brace-fold.js'  // FOR JS
+import 'codemirror/addon/fold/brace-fold.js'; // FOR JS
 import 'codemirror/addon/fold/foldcode.js';
-// import 'codemirror/addon/fold/indent-fold.js'
-// import 'codemirror/addon/fold/xml-fold.js'
+import 'codemirror/addon/fold/indent-fold.js';
 
 import 'codemirror/addon/hint/show-hint.css';
 import 'codemirror/addon/hint/show-hint.js';
-// import 'codemirror/addon/hint/xml-hint.js'
+import 'codemirror/addon/hint/xml-hint.js';
 import 'codemirror/addon/hint/html-hint.js';
 import 'codemirror/addon/hint/css-hint.js';
 import 'codemirror/addon/hint/anyword-hint.js';
