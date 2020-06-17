@@ -20,7 +20,12 @@
     { "label": "Help", "submenu": [{ "label": "About" }] },
     {
       "label": "Router",
-      "submenu": [{ "label": "route-Home" }, { "label": "route-About" }, { "label": "route-Editor" }]
+      "submenu": [
+        { "label": "route-Home" },
+        { "label": "route-About" },
+        { "label": "route-Markdown" },
+        { "label": "route-Codepen" }
+      ]
     }
   ]
 }

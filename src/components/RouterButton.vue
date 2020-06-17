@@ -68,6 +68,8 @@ body {
   letter-spacing: 2px;
   font-weight: bold;
   position: relative;
+
+  margin: 100px;
 }
 #flex .bttn:after {
   transition: var(--animation);

@@ -15,6 +15,7 @@ module.exports = {
     semi: ['off', 'always'],
     'space-before-function-paren': ['error', 'never'],
     'max-len': ['error', { code: 140 }],
+    'operator-linebreak': [2, 'after'], //换行时运算符在行尾还是行首
   },
   overrides: [
     {

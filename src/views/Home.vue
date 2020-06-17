@@ -2,9 +2,17 @@
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
 
-    <router-link to="/fronter" :style="{ 'pointer-events': 'none', cursor: 'default' }">
-      <router-button :innerstyle="{ 'pointer-events': 'auto', cursor: 'pointer' }">Editor</router-button>
-    </router-link>
+    <div id="routerWrapper">
+      <router-link to="/fronter" :style="{ 'pointer-events': 'none', cursor: 'default' }">
+        <router-button :innerstyle="{ 'pointer-events': 'auto', cursor: 'pointer' }">CodepenEditor</router-button>
+      </router-link>
+      <router-link to="/about" :style="{ 'pointer-events': 'none', cursor: 'default' }">
+        <router-button :innerstyle="{ 'pointer-events': 'auto', cursor: 'pointer' }">About</router-button>
+      </router-link>
+      <router-link to="/markdown" :style="{ 'pointer-events': 'none', cursor: 'default' }">
+        <router-button :innerstyle="{ 'pointer-events': 'auto', cursor: 'pointer' }">MarkdownEditor</router-button>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -19,3 +27,10 @@ export default {
   },
 };
 </script>
+
+<style>
+#routerWrapper {
+  display: flex;
+  justify-content: center;
+}
+</style>

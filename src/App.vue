@@ -26,8 +26,10 @@ export default {
         this.$router.replace('/');
       } else if (routeDir === 'About') {
         this.$router.replace('/about');
-      } else if (routeDir === 'Editor') {
+      } else if (routeDir === 'Codepen') {
         this.$router.replace('/fronter');
+      } else if (routeDir === 'Markdown') {
+        this.$router.replace('/markdown');
       }
     },
   },

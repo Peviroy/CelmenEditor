@@ -10,7 +10,8 @@
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
-    "postuninstall": "electron-builder install-app-deps"
+    "postuninstall": "electron-builder install-app-deps",
+    "webpack-defaults": "webpack-defaults"
   },
   "main": "background.js",
   "dependencies": {
@@ -18,9 +19,11 @@
     "codemirror": "^5.54.0",
     "core-js": "^3.6.5",
     "htmlhint": "^0.14.0",
+    "marked": "^1.1.0",
     "vue": "^2.6.11",
     "vue-i18n": "^8.18.2",
     "vue-router": "^3.2.0",
+    "vue-scroll": "^2.1.13",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
@@ -33,16 +36,25 @@
     "@vue/eslint-config-airbnb": "^5.0.2",
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
+    "cli-service": "^0.0.2",
+    "css-loader": "^3.6.0",
     "electron": "^9.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^6.2.2",
     "lint-staged": "^9.5.0",
+    "node-sass": "^4.14.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^8.0.2",
+    "sass-resources-loader": "^2.0.3",
     "spectron": "^11.0.0",
+    "style-loader": "^1.2.1",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "vue-cli-plugin-electron-builder": "~2.0.0-rc.1",
-    "vue-template-compiler": "^2.6.11"
+    "vue-loader": "^15.9.2",
+    "vue-template-compiler": "^2.6.11",
+    "yarn": "^1.22.4"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

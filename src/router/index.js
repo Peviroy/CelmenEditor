@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
 import FrontEditor from '@/views/HtmlEditor.vue';
+import MarkdownEditor from '@/views/MarkdownEditor.vue';
 
 Vue.use(VueRouter);
 
@@ -13,8 +14,13 @@ const routes = [
   },
   {
     path: '/fronter',
-    name: 'Fronter',
+    name: 'FrontEditor',
     component: FrontEditor,
+  },
+  {
+    path: '/markdown',
+    name: 'MarkdownEditor',
+    component: MarkdownEditor,
   },
   {
     path: '/about',
