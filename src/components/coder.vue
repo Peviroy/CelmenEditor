@@ -142,6 +142,7 @@ export default {
       return this.$refs.myEditor.editor;
     },
   },
+
 };
 </script>
 

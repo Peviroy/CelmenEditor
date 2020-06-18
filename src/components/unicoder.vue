@@ -1,16 +1,16 @@
 <template>
   <div class="universal-editor">
     <div class="label-container">
-      <!-- <img :src="labelSrc" class="file-info-icon" />
-        <div class="file-info-name">
-          <span>{{ this.kind }}</span>
-        </div> -->
-      <div v-for="value in nameTabs" :key="value.id">
+      <div v-for="value in nameTabs" :key="value.id" class="file-info">
         <input type="radio" name="rd" @click="selectedTab" :id="value.id" :checked="value.show" />
-        <label class="label-tab" :for="value.id">
-          {{ value.name }}
-        </label>
+        <div class="label-tab">
+          <img :src="value.labelSrc" class="label-icon" />
+          <label :for="value.id" class="label-name">
+            {{ value.name }}
+          </label>
+        </div>
       </div>
+      <div class="newTabBtn" @click="makeNewTab"></div>
     </div>
     <div class="editor-container" ref="editor_container">
       <code-mirror
@@ -58,8 +58,15 @@ export default {
   },
 
   methods: {
+    makeNewTab() {
+      console.log('newTabRequest');
+
+      this.$emit('newTab');
+    },
+    // ! select Tab and editor focus cannot merge, but only divide into two part
     selectedTab(event) {
-      const idContainerCM = `container-${event.target.id}`;
+      const tabId = event.target.id;
+      const idContainerCM = `container-${tabId}`;
       console.log('Selected:', idContainerCM);
       const domContainerCM = document.getElementById(idContainerCM).nextElementSibling; // next dom element is the true editor
 
@@ -69,7 +76,7 @@ export default {
       }
       domContainerCM.style.display = 'block';
       this.currentTab = domContainerCM;
-      this.$emit('focusedDomChange', this.currentTab);
+      this.$emit('focusedDomChange', { id: tabId, dom: this.currentTab });
     },
     onEditorReady(editor) {
       console.log('the editor is readied!', editor);
@@ -107,28 +114,77 @@ export default {
   background: #212429;
 }
 
-input[type='radio'] {
-  display: none;
-}
-
-.label-tab {
+.label-container .file-info {
   float: left;
   cursor: pointer;
   font-family: 'Source Sans Pro', sans-serif;
+  height: 50px;
+  user-select: none;
 }
 
-input[type='radio']:checked + .label-tab {
+.label-container .file-info input[type='radio'] {
+  display: none;
+}
+
+.label-container .file-info .label-tab .label-icon {
+  height: 30px;
+}
+
+.label-container .file-info .label-tab .label-name {
+  cursor: pointer;
+}
+
+.label-container .file-info input[type='radio']:checked + .label-tab {
   background: #2b3037;
   color: #f1f1f1;
-  padding: 1em;
+  padding: 0.5em;
   display: inline-block;
 }
 
-input[type='radio'] + .label-tab {
-  padding: 1em;
+.label-container .file-info input[type='radio'] + .label-tab {
+  padding: 0.5em;
   background: #212429;
   color: #fff;
   display: inline-block;
+}
+
+.label-container .newTabBtn {
+  float: right;
+  color: azure;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+
+  position: relative;
+  transition: color 0.25s;
+}
+
+.label-container .newTabBtn::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  margin-left: -10px;
+  margin-top: -2.5px;
+  border-top: 5px solid;
+  border-radius: 5px;
+}
+
+.label-container .newTabBtn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 20px;
+  margin-left: -2.5px;
+  margin-top: -10px;
+  border-left: 5px solid;
+  border-radius: 5px;
+}
+
+.label-container .newTabBtn:hover {
+  color: aqua;
 }
 
 .editor-container {

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
-import FrontEditor from '@/views/HtmlEditor.vue';
+import FrontEditor from '@/views/FrontEditor.vue';
 import MarkdownEditor from '@/views/MarkdownEditor.vue';
 import UniversalEditor from '@/views/UniversalEditor.vue';
 

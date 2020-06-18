@@ -14,6 +14,7 @@
         @focusedDomChange="focusHandler"
         @editorFocus="editorGetter"
         @onEditorCodeChange="editorContentUpdater"
+        @newTab="addTab"
       ></universal-editor>
     </code-splitter>
   </div>
@@ -22,6 +23,8 @@
 <script>
 /* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 
 import Folder from 'vue-electron-folder';
 import codeSplitter from '@/components/splitter/splitter.vue';
@@ -30,6 +33,7 @@ import universalEditor from '@/components/unicoder.vue';
 const { dialog } = window.require('electron').remote;
 // const { ipcRenderer } = require('electron')
 const fs = require('fs');
+const path = require('path');
 const iconv = require('iconv-lite');
 
 export default {
@@ -44,33 +48,103 @@ export default {
   data() {
     return {
       openedFolders: ['/home/penguinviceroy/Peviroy/'],
+      tabNumber: 2,
       editorConfigs: [
         {
           name: 'Tab-1',
           mode: 'javascript',
           option: this.getEditorOption('javascript'),
         },
-        {
-          name: 'Tab-2',
-          mode: 'text/html',
-          option: this.getEditorOption('text/html'),
-        },
       ],
       currentEditor: {
-        editor: null,
+        id: null,
         path: null,
+        domHandle: null,
+        editor: null,
         coding: 'utf-8', // utf-8 default
+        picSrc: null,
       },
     };
   },
   methods: {
+    addTab() {
+      this.editorConfigs.push({
+        name: 'Tab-0',
+        mode: 'text/html',
+        option: this.getEditorOption('text/html'),
+      });
+    },
+    removeTab() {},
+    updateTab(filepath) {
+      console.log('update！');
+
+      const filename = path.basename(filepath);
+      const fileAppendix = filename.split('.').pop();
+      const [mode, picSrc] = this.appendixTransform(fileAppendix);
+
+      let config;
+      // eslint-disable-next-line no-restricted-syntax
+      for (config of this.editorConfigs) {
+        console.log('config name', config.name);
+        console.log('currentEditor id', this.currentEditor.id);
+        if (config.name === this.currentEditor.id) {
+          config.name = filename;
+          this.currentEditor.id = filename;
+          config.mode = mode;
+          config.option = this.getEditorOption(mode);
+          config.picSrc = picSrc;
+          console.log(picSrc);
+        }
+      }
+    },
+    // helper
+    appendixTransform(appendix) {
+      const mode = {};
+      // eslint-disable-next-line no-undef
+      let picSrc = '/fileIcon/';
+      if (appendix === 'js') {
+        mode.name = 'text/javascript';
+        picSrc += 'javascript.svg';
+      } else if (appendix === 'json') {
+        mode.name = 'application/json';
+        picSrc += 'javascript.svg';
+      } else if (appendix === 'html' || appendix === 'htm') {
+        mode.name = 'text/html';
+        picSrc += 'html.svg';
+      } else if (appendix === 'css') {
+        mode.name = 'text/css';
+        picSrc += 'css.svg';
+      } else if (appendix === 'c') {
+        mode.name = 'text/x-csrc';
+        picSrc += 'c.svg';
+      } else if (appendix === 'cpp') {
+        mode.name = 'text/x-c++src';
+        picSrc += 'cpp.svg';
+      } else if (appendix === 'java') {
+        mode.name = 'text/x-java ';
+        picSrc += 'java.svg';
+      } else if (appendix === 'py') {
+        mode.name = 'text/x-python.';
+        picSrc += 'python.svg';
+      } else {
+        mode.name = null;
+        picSrc = '/app.png';
+      }
+      return [mode, picSrc];
+    },
     // open file via folder tree
     dbclickHandler(data) {
       console.log('dblclick', data);
       this.fileOp('Open...', data.path);
     },
-    focusHandler(currentFocusedDom) {
-      console.log('currentDom', currentFocusedDom);
+    focusHandler(DomObject) {
+      const { id, dom } = DomObject;
+      console.log('focuHandler', id);
+
+      this.currentEditor.id = id.replace('codemirror-area-', '');
+      console.log('focuHandler currentEditor', this.currentEditor.id);
+
+      this.currentEditor.domHandle = dom;
     },
     // 多标签难以根据prop确定编辑区，子组件传递编辑区以解决
     editorGetter(editor) {
@@ -145,7 +219,7 @@ export default {
         // }
       };
     },
-    fileOp(type, filepath = null) {
+    fileOp(type, _filepath = null) {
       console.log(type);
       switch (type) {
         case 'New': {
@@ -154,8 +228,8 @@ export default {
           break;
         }
         case 'Open...': {
-          let filename = filepath;
-          if (filepath === null) {
+          let filename = _filepath;
+          if (_filepath === null) {
             // eslint-disable-next-line prefer-destructuring
             filename = dialog.showOpenDialogSync({
               title: 'Open...',
@@ -167,12 +241,12 @@ export default {
             })[0];
           }
           console.log(filename);
-          const path = filename;
-          const content = fs.readFileSync(path, 'utf8');
-          console.log(this.focusedEditor);
+          const filepath = filename;
+          const content = fs.readFileSync(filepath, 'utf8');
           this.setValue(content);
-          this.setPath(path);
+          this.setPath(filepath);
           this.setCoding('utf8');
+          this.updateTab(filepath);
           break;
         }
         case 'Open folder': {
@@ -184,15 +258,15 @@ export default {
           break;
         }
         case 'Save': {
-          const path = this.getPath();
+          const filepath = this.getPath();
           const content = this.getValue();
-          if (path === '') {
+          if (filepath === '') {
             this.saveAs();
           } else {
             const code = iconv.encode(content, this.getCoding());
-            console.log(path);
+            console.log(filepath);
             console.log(content);
-            fs.writeFileSync(path, code, 'utf8');
+            fs.writeFileSync(filepath, code, 'utf8');
           }
           break;
         }
@@ -209,13 +283,13 @@ export default {
         title: '保存文件',
         filters: [{ name: 'html/css/js', extensions: ['html', 'css', 'js'] }],
       };
-      const path = dialog.showSaveDialogSync(options);
-      console.log('save as path: ', path);
-      this.setPath(path);
+      const filepath = dialog.showSaveDialogSync(options);
+      console.log('save as path: ', filepath);
+      this.setPath(filepath);
       this.fileOp('Save');
     },
-    setPath(path) {
-      this.currentEditor.path = path;
+    setPath(filepath) {
+      this.currentEditor.path = filepath;
     },
     getPath() {
       return this.currentEditor.path;
@@ -252,6 +326,7 @@ export default {
           name: config.name,
           id: `codemirror-area-${config.name}`,
           show: i === 0,
+          labelSrc: config.picSrc,
         });
       });
       return _nameTabs;
@@ -262,11 +337,6 @@ export default {
     this.$bus.$on('file', (message) => {
       console.log(message);
       this.fileOp(message);
-    });
-    this.$bus.$off('changefocus'); // 更新当前
-    this.$bus.$on('changefocus', (message) => {
-      console.log(message);
-      this.focusedEditor = message;
     });
     this.$bus.$off('coding'); // 切换编码
     this.$bus.$on('coding', (codingType) => {
