@@ -3,11 +3,12 @@
     {
       "label": "File",
       "submenu": [
-        { "label": "New" },
-        { "label": "Open...", "accelerator": "Ctrl+O" },
-        { "label": "Save" },
-        { "label": "Save as" },
-        { "label": "Quit", "accelerator": "Ctrl+Q" }
+        { "label": "New", "type": "file" },
+        { "label": "Open...", "type": "file" },
+        { "label": "Open folder", "type": "file" },
+        { "label": "Save", "type": "file" },
+        { "label": "Save as", "type": "file" },
+        { "label": "Quit", "type": "file" }
       ]
     },
     {

@@ -6,7 +6,7 @@
           <span>{{ this.kind }}</span>
         </div> -->
       <div v-for="value in nameTabs" :key="value.id">
-        <input type="radio" name="rd" v-on:click="selectedTab" :id="value.id" :checked="value.show" />
+        <input type="radio" name="rd" @click="selectedTab" :id="value.id" :checked="value.show" />
         <label class="label-tab" :for="value.id">
           {{ value.name }}
         </label>
@@ -69,13 +69,26 @@ export default {
       }
       domContainerCM.style.display = 'block';
       this.currentTab = domContainerCM;
+      this.$emit('focusedDomChange', this.currentTab);
     },
     onEditorReady(editor) {
       console.log('the editor is readied!', editor);
     },
+    onEditorFocus(editor) {
+      console.log('the editor is focus!', editor);
+      this.$emit('editorFocus', editor);
+    },
+    onEditorCodeChange(newCode) {
+      console.log('this is new code', newCode);
+      // console.log('this is type', editorType);
+      // this.code = newCode;
+      this.$emit('change', newCode);
+    },
   },
   computed: {
     code() {
+      console.log('code computed');
+
       return this.value;
     },
   },

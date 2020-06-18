@@ -7,7 +7,14 @@
           <div>path: {{ data.path }}</div>
         </div>
       </folder>
-      <universal-editor slot="right-pane" :nameTabs="nameTabs" :configs="editorConfigs"></universal-editor>
+      <universal-editor
+        slot="right-pane"
+        :nameTabs="nameTabs"
+        :configs="editorConfigs"
+        @focusedDomChange="focusHandler"
+        @editorFocus="editorGetter"
+        @onEditorCodeChange="editorContentUpdater"
+      ></universal-editor>
     </code-splitter>
   </div>
 </template>
@@ -19,6 +26,11 @@
 import Folder from 'vue-electron-folder';
 import codeSplitter from '@/components/splitter/splitter.vue';
 import universalEditor from '@/components/unicoder.vue';
+
+const { dialog } = window.require('electron').remote;
+// const { ipcRenderer } = require('electron')
+const fs = require('fs');
+const iconv = require('iconv-lite');
 
 export default {
   name: 'UniversalEditor',
@@ -44,11 +56,28 @@ export default {
           option: this.getEditorOption('text/html'),
         },
       ],
+      currentEditor: {
+        editor: null,
+        path: null,
+        coding: 'utf-8', // utf-8 default
+      },
     };
   },
   methods: {
+    // open file via folder tree
     dbclickHandler(data) {
       console.log('dblclick', data);
+      this.fileOp('Open...', data.path);
+    },
+    focusHandler(currentFocusedDom) {
+      console.log('currentDom', currentFocusedDom);
+    },
+    // 多标签难以根据prop确定编辑区，子组件传递编辑区以解决
+    editorGetter(editor) {
+      this.currentEditor.editor = editor;
+    },
+    editorContentUpdater(newCode) {
+      this.setValue(newCode);
     },
     getEditorOption(editorType) {
       return {
@@ -116,6 +145,104 @@ export default {
         // }
       };
     },
+    fileOp(type, filepath = null) {
+      console.log(type);
+      switch (type) {
+        case 'New': {
+          this.setPath('');
+          this.setValue('');
+          break;
+        }
+        case 'Open...': {
+          let filename = filepath;
+          if (filepath === null) {
+            // eslint-disable-next-line prefer-destructuring
+            filename = dialog.showOpenDialogSync({
+              title: 'Open...',
+              filters: [
+                { name: 'HTML/JS/CSS', extensions: ['html', 'htm', 'js', 'css'] },
+                { name: 'All Files', extensions: ['*'] },
+              ],
+              properties: ['openFile', 'multiSelections'],
+            })[0];
+          }
+          console.log(filename);
+          const path = filename;
+          const content = fs.readFileSync(path, 'utf8');
+          console.log(this.focusedEditor);
+          this.setValue(content);
+          this.setPath(path);
+          this.setCoding('utf8');
+          break;
+        }
+        case 'Open folder': {
+          const foldername = dialog.showOpenDialogSync({
+            title: 'Open folder',
+            properties: ['openDirectory'],
+          })[0];
+          this.openedFolders = [foldername];
+          break;
+        }
+        case 'Save': {
+          const path = this.getPath();
+          const content = this.getValue();
+          if (path === '') {
+            this.saveAs();
+          } else {
+            const code = iconv.encode(content, this.getCoding());
+            console.log(path);
+            console.log(content);
+            fs.writeFileSync(path, code, 'utf8');
+          }
+          break;
+        }
+        case 'Save as': {
+          this.saveAs();
+          break;
+        }
+        default:
+          break;
+      }
+    },
+    saveAs() {
+      const options = {
+        title: '保存文件',
+        filters: [{ name: 'html/css/js', extensions: ['html', 'css', 'js'] }],
+      };
+      const path = dialog.showSaveDialogSync(options);
+      console.log('save as path: ', path);
+      this.setPath(path);
+      this.fileOp('Save');
+    },
+    setPath(path) {
+      this.currentEditor.path = path;
+    },
+    getPath() {
+      return this.currentEditor.path;
+    },
+    getValue() {
+      console.log('currentEditor content', this.currentEditor.editor.getValue());
+      return this.currentEditor.editor.getValue();
+    },
+    setValue(newValue) {
+      this.currentEditor.editor.setValue(newValue);
+    },
+    setCoding(newCoding) {
+      this.currentEditor.coding = newCoding;
+    },
+    getCoding() {
+      return this.currentEditor.coding;
+    },
+    changeCoding(newCoding) {
+      const from = this.currentEditor.coding;
+      const to = newCoding;
+      console.log('from coding: ', from, 'to coding', to);
+      let content = this.getValue();
+      const code = iconv.encode(content, from);
+      content = iconv.decode(code, to);
+      this.setValue(content);
+      this.setCoding(to);
+    },
   },
   computed: {
     nameTabs() {
@@ -142,10 +269,9 @@ export default {
       this.focusedEditor = message;
     });
     this.$bus.$off('coding'); // 切换编码
-    this.$bus.$on('coding', (message) => {
-      console.log(message);
-      this.setCoding(message);
-      this.changeCoding();
+    this.$bus.$on('coding', (codingType) => {
+      console.log(codingType);
+      this.changeCoding(codingType);
     });
   },
 };

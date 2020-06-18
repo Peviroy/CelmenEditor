@@ -45,7 +45,7 @@ export default {
       } else if (event.item.type === 'coding') {
         console.log('emit coding');
         this.$bus.$emit('coding', event.item.label);
-      } else {
+      } else if (event.item.type === 'file') {
         console.log('emit file');
         this.$bus.$emit('file', event.item.label);
       }
