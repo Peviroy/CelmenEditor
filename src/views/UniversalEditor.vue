@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <code-splitter :left-min-width="360" :right-min-width="600">
-      <folder slot="left-pane-default" :openedFolders="openedFolders" @dblclick="dbclickHandler">
+      <folder
+        slot="left-pane-default"
+        :openedFolders="openedFolders"
+        @dblclick="dbclickHandler"
+        :style="{ 'font-size': '15px' }"
+      >
         <div slot-scope="{ node, data }">
           <div>name: {{ data.label }}</div>
           <div>path: {{ data.path }}</div>
@@ -54,6 +59,7 @@ export default {
           name: 'Tab-1',
           mode: 'javascript',
           option: this.getEditorOption('javascript'),
+          picSrc: '/app.png',
         },
       ],
       currentEditor: {
@@ -69,9 +75,10 @@ export default {
   methods: {
     addTab() {
       this.editorConfigs.push({
-        name: 'Tab-0',
+        name: 'Tab-new',
         mode: 'text/html',
         option: this.getEditorOption('text/html'),
+        picSrc: '/app.png',
       });
     },
     removeTab() {},
