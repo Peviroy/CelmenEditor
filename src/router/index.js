@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
 import FrontEditor from '@/views/HtmlEditor.vue';
 import MarkdownEditor from '@/views/MarkdownEditor.vue';
+import UniversalEditor from '@/views/UniversalEditor.vue';
 
 Vue.use(VueRouter);
 
@@ -23,11 +24,13 @@ const routes = [
     component: MarkdownEditor,
   },
   {
+    path: '/universal',
+    name: 'UniversalEditor',
+    component: UniversalEditor,
+  },
+  {
     path: '/about',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
   },
 ];

@@ -24,7 +24,8 @@
         { "label": "route-Home" },
         { "label": "route-About" },
         { "label": "route-Markdown" },
-        { "label": "route-Codepen" }
+        { "label": "route-Codepen" },
+        { "label": "route-Universal" }
       ]
     }
   ]

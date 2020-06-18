@@ -30,6 +30,8 @@ export default {
         this.$router.replace('/fronter');
       } else if (routeDir === 'Markdown') {
         this.$router.replace('/markdown');
+      } else if (routeDir === 'Universal') {
+        this.$router.replace('/universal');
       }
     },
   },

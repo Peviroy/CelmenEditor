@@ -7,10 +7,6 @@
           <span>{{ this.kind }}</span>
         </div>
       </div>
-      <!-- <div class="file-tooltip">
-        <span>{{ $tc('om.coderedit.topbar.tooltip', 1) }}</span>
-        <a class="file-tooltip-upload" href="./">{{ $tc('om.coderedit.topbar.tooltip', 2) }}</a>
-      </div>-->
     </div>
     <code-mirror
       class="coder-editor__document"

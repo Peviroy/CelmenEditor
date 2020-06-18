@@ -39,7 +39,7 @@
 
 <style>
 .code-splitter {
-  height: inherit;
+  height: 100vh;
   display: flex;
   z-index: 174;
 }
@@ -101,7 +101,7 @@ export default {
       default() {
         return [
           {
-            kind: 'html',
+            kind: 'default',
           },
         ];
       },
