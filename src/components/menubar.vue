@@ -54,12 +54,12 @@ export default {
   created() {
     this.menu = this.menuData;
 
-    document.addEventListener('keydown', (event) => {
-      if (['o', 'q', 'x', 'c', 'v', 'f'].indexOf(event.key) > -1 && event.ctrlKey) {
-        event.preventDefault();
-        console.log('Notice: Accelerators are shown only. No listeners will be set up for them!');
-      }
-    });
+    // document.addEventListener('keydown', (event) => {
+    //   if (['o', 'q', 'x', 'c', 'v', 'f'].indexOf(event.key) > -1 && event.ctrlKey) {
+    //     event.preventDefault();
+    //     console.log('Notice: Accelerators are shown only. No listeners will be set up for them!');
+    //   }
+    // });
   },
   components: { 'menu-bar': nativeMenubar },
 };

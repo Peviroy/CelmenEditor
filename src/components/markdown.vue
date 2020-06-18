@@ -1,13 +1,13 @@
 <template>
   <div class="mdContainer" :class="{ fullPage: fullPageStatus }">
     <div class="navContainer" v-if="navStatus">
-      <div class="nameContainer" v-if="icoStatusP" @click="happyDay">OVEN-mdEditor</div>
+      <div class="nameContainer" v-if="icoStatusP">Celmentor-markdownEditor</div>
       <div class="markContainer">
         <ul class="markListGroup">
           <li class="markListItem" @click="addStrong" title="strong"><b>B</b></li>
           <li class="markListItem" @click="addItalic" title="italic"><i>I</i></li>
           <li class="markListItem" @click="addStrikethrough" title="strikethrough">
-            <i class="fa fa-strikethrough" aria-hidden="true"></i>
+            ~~
           </li>
           <li class="markListItem" @click="addHTitle(1)" title="H1-title">H1</li>
           <li class="markListItem" @click="addHTitle(2)" title="H2-title">H2</li>
@@ -53,6 +53,11 @@
 
 <script>
 /* eslint-disable no-param-reassign */
+/* 引入reset文件 */
+import '@/assets/css/reset.css'; /* 引入github的markdown样式文件 */
+import '@/assets/css/github-markdown.css'; /* 引入atom的代码高亮样式文件 */
+import '@/assets/css/atom-one-dark.min.css';
+import '@/assets/font-awesome-4.4.0/css/font-awesome.min.css';
 
 import Vue from 'vue';
 import marked from 'marked';
@@ -122,7 +127,7 @@ export default {
       }
     },
     addImage() {
-      insertContent('![Vue](https://cn.vuejs.org/images/logo.png)', this);
+      insertContent('![Celmentor](https://cn.vuejs.org/images/logo.png)', this);
     },
     addHTitle(index) {
       let tmp = '';
@@ -272,9 +277,6 @@ export default {
         document.querySelector('.previewContainer').scrollTop = this.maxPreviewScrollHeight * topPercent;
       }
     },
-    happyDay() {
-      window.open('https://github.com/ovenslove/vue-mdEditor');
-    },
   },
   computed: {
     compiledMarkdown() {
@@ -304,113 +306,98 @@ export default {
 };
 </script>
 
-
-<style lang="scss">
-// /*引入reset文件*/
-
-// @import '@/assets/css/reset';
-
-// /*引入github的markdown样式文件*/
-
-// @import '@/assets/css/github-markdown.css';
-
-// /*引入atom的代码高亮样式文件*/
-
-// @import '@/assets/css/atom-one-dark.min.css';
-// .mdContainer {
-//   width: 100%;
-//   height: 100%;
-//   background: lightblue;
-//   &.fullPage {
-//     position: fixed;
-//     z-index: 1000;
-//     left: 0;
-//     top: 0;
-//   }
-//   .navContainer {
-//     width: 100%;
-//     height: 36px;
-//     background: #fff;
-//     box-sizing: border-box;
-//     border-bottom: 1px solid #eee;
-//     display: flex;
-//     justify-content: flex-start;
-//     align-items: center;
-//     padding: 0 10px;
-//     .nameContainer {
-//       color: lightblue;
-//       margin-right: 10px;
-//       cursor: pointer;
-//     }
-//     .markContainer {
-//       width: auto;
-//       height: 100%;
-//       margin-left: 0px;
-//       ul.markListGroup {
-//         height: 100%;
-//         width: auto;
-//         display: flex;
-//         justify-content: flex-start;
-//         align-items: center;
-//         li.markListItem {
-//           list-style: none;
-//           width: 20px;
-//           height: 20px;
-//           margin: 0 2px;
-//           display: flex;
-//           justify-content: center;
-//           align-items: center;
-//           cursor: pointer;
-//           font-size: 12px;
-//           color: #333;
-//           &:hover {
-//             background: #eee;
-//           }
-//         }
-//       }
-//     }
-//   }
-//   .mdBodyContainer {
-//     width: 100%;
-//     height: calc(100% - 36px);
-//     background: #fff;
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     box-sizing: border-box;
-//     &.noMenu {
-//       height: 100%;
-//     }
-//   }
-// }
-
-// // 编辑区域
-// .editContainer {
-//   height: 100%;
-//   width: 100%;
-//   box-sizing: border-box;
-//   border-right: 1px solid #ddd;
-//   background: #333;
-//   color: #fff;
-//   padding: 10px;
-//   .mdEditor {
-//     height: 100%;
-//     width: 100%;
-//     background: transparent;
-//     outline: none;
-//     color: #fff;
-//     resize: none;
-//   }
-// }
-
-// // 预览区
-// .previewContainer {
-//   width: 100%;
-//   height: 100%;
-//   box-sizing: border-box;
-//   background: #fff;
-//   overflow: auto;
-//   padding: 10px;
-// }
-//
-// </style>
+<style>
+.mdContainer {
+  width: 100%;
+  height: 100%;
+  background: lightblue;
+}
+.mdContainer.fullPage {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+}
+.mdContainer .navContainer {
+  width: 100%;
+  height: 36px;
+  background: #fff;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 10px;
+}
+.mdContainer .navContainer .nameContainer {
+  color: indigo;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.mdContainer .navContainer .markContainer {
+  width: auto;
+  height: 100%;
+  margin-left: 0px;
+}
+.mdContainer .navContainer .markContainer ul.markListGroup {
+  height: 100%;
+  width: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.mdContainer .navContainer .markContainer ul.markListGroup li.markListItem {
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  margin: 0 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+.mdContainer .navContainer .markContainer ul.markListGroup li.markListItem:hover {
+  background: #eee;
+}
+.mdContainer .mdBodyContainer {
+  width: 100%;
+  height: calc(100% - 36px);
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+.mdContainer .mdBodyContainer.noMenu {
+  height: 100%;
+}
+.editContainer {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  border-right: 1px solid #ddd;
+  background: #333;
+  color: #fff;
+  padding: 10px;
+}
+.editContainer .mdEditor {
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  outline: none;
+  color: #fff;
+  resize: none;
+}
+.previewContainer {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  overflow: auto;
+  padding: 10px;
+  text-align: left;
+  font-size: inherit;
+}
+</style>

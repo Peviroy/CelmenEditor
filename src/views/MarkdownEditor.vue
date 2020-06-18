@@ -40,7 +40,7 @@ export default {
       msgShow: '我要显示的内容',
       dilogStatus: false,
       msg: {
-        mdValue: '## Vue-markdownEditor',
+        mdValue: '## Celmentor-markdownEditor',
       },
     };
   },
@@ -69,95 +69,122 @@ export default {
 </script>
 
 <style>
-.mdContainer {
-  width: 100%;
-  height: 100%;
-  background: lightblue;
-}
-.mdContainer.fullPage {
-  position: fixed;
-  z-index: 1000;
+.show {
+  position: absolute;
   left: 0;
   top: 0;
 }
-.mdContainer .navContainer {
+.indexContainer {
   width: 100%;
-  height: 36px;
-  background: #fff;
-  box-sizing: border-box;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0 10px;
-}
-.mdContainer .navContainer .nameContainer {
-  color: lightblue;
-  margin-right: 10px;
-  cursor: pointer;
-}
-.mdContainer .navContainer .markContainer {
-  width: auto;
   height: 100%;
-  margin-left: 0px;
-}
-.mdContainer .navContainer .markContainer ul .markListGroup {
-  height: 100%;
-  width: auto;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.mdContainer .navContainer .markContainer ul .markListGroup li .markListItem {
-  list-style: none;
-  width: 20px;
-  height: 20px;
-  margin: 0 2px;
+  background: #ddd;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  font-size: 12px;
-  color: #333;
+  position: relative;
 }
-.mdContainer .navContainer .markContainer ul .markListGroup li .markListItem:hover {
-  background: #eee;
-}
-.mdContainer .mdBodyContainer {
-  width: 100%;
-  height: calc(100% - 36px);
-  background: #fff;
+.btnsContainer {
+  position: absolute;
+  z-index: 10;
+  right: 5px;
+  top: 5px;
+  height: 25px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+}
+.btnsContainer .btn {
+  display: inline-block;
+  border: 1px solid #ccc;
+  margin-right: 10px;
   box-sizing: border-box;
-}
-.mdContainer .mdBodyContainer.noMenu {
-  height: 100%;
-}
-.editContainer {
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  border-right: 1px solid #ddd;
-  background: #333;
-  color: #fff;
-  padding: 10px;
-}
-.editContainer .mdEditor {
-  height: 100%;
-  width: 100%;
-  background: transparent;
-  outline: none;
-  color: #fff;
-  resize: none;
-}
-.previewContainer {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
+  padding: 0 10px;
   background: #fff;
-  overflow: auto;
+  font-size: 12px;
+  height: 25px;
+  line-height: 25px;
+  cursor: pointer;
+  moz-user-select: -moz-none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.btnsContainer .btn:active {
+  opacity: 0.8;
+  background: lightblue;
+}
+.maskContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.maskContainer .contentContainer {
+  width: 60%;
+  height: 60%;
+  background: #fefefe;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+.maskContainer .contentContainer .showAreaContainer {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  background: #eee;
+  display: block;
+  resize: none;
   padding: 10px;
+  box-sizing: border-box;
+}
+.maskContainer .contentContainer .closeBtnContainer {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  right: -40px;
+  top: -40px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+.maskContainer .contentContainer .closeBtnContainer::before {
+  content: '';
+  position: absolute;
+  width: 70%;
+  height: 2px;
+  display: bblock;
+  background: #fff;
+  left: 15%;
+  top: calc(50% - 1px);
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+}
+.maskContainer .contentContainer .closeBtnContainer::after {
+  content: '';
+  position: absolute;
+  width: 70%;
+  height: 2px;
+  display: bblock;
+  background: #fff;
+  left: 15%;
+  top: calc(50% - 1px);
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+}
+.editorContainer {
+  width: inherit;
+  height: inherit;
+  font-size: 20px;
 }
 </style>

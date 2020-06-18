@@ -54,8 +54,4 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-
-#routerview {
-  height: calc(100% - 32px);
-}
 </style>
