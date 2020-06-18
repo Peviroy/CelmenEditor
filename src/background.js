@@ -15,9 +15,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 let win;
 
 // Scheme must be registered before the app is ready
-protocol.registerSchemesAsPrivileged([
-  { scheme: 'app', privileges: { secure: true, standard: true } },
-]);
+protocol.registerSchemesAsPrivileged([{ scheme: 'app', privileges: { secure: true, standard: true } }]);
 
 function createWindow() {
   // Create the browser window.
@@ -35,6 +33,7 @@ function createWindow() {
       // nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       nodeIntegration: true,
     },
+    autoHideMenuBar: true,
     // eslint-disable-next-line ,no-undef
     icon: process.platform === 'win32' ? `${__static}/app.ico` : `${__static}/app.png`, // .ico for windows; .png for all
   });
@@ -55,6 +54,7 @@ function createWindow() {
   win.on('closed', () => {
     win = null;
   });
+  // Menu.setApplicationMenu(null); // 取消菜单栏
 }
 
 // Quit when all windows are closed.

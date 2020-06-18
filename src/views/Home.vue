@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <img alt="Vue logo" src="../assets/logo.png" :style="{ 'margin-top': '20px' }" />
 
     <div id="routerWrapper">
       <router-link to="/fronter" :style="{ 'pointer-events': 'none', cursor: 'default' }">

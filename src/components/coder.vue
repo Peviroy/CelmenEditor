@@ -41,7 +41,6 @@ export default {
 
   data() {
     return {
-      kindWrapper: '',
       editorOptions: this.getEditorOption(),
       label_height: 30,
     };
@@ -53,25 +52,26 @@ export default {
     },
     onEditorFocus(editor) {
       console.log('the editor is focus!', editor);
-      console.log('focus editor type', this.kindWrapper);
-      this.$bus.$emit('changefocus', this.kindWrapper);
+      console.log('focus editor type', this.kind);
+      this.$bus.$emit('changefocus', this.kind);
     },
     onEditorCodeChange(newCode) {
       // console.log('this is new code', newCode);
       // console.log('this is type', editorType);
       // this.code = newCode;
-      const editorType = this.kindWrapper;
+      const editorType = this.kind;
 
       this.$emit('change', [newCode, editorType]);
     },
     getEditorOption() {
       console.log('applyed');
 
-      this.kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
+      const kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
+
       return {
         // codemirror options
         tabSize: 2,
-        mode: this.kindWrapper,
+        mode: kindWrapper,
         theme: 'material',
 
         lineNumbers: true,

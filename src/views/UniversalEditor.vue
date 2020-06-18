@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <code-splitter :left-min-width="360" :right-min-width="600">
-      <folder slot="left-pane-default" :openedFolders="openedFolders" @dblclick="dbclickHandler">
+      <folder
+        slot="left-pane-default"
+        :openedFolders="openedFolders"
+        @dblclick="dbclickHandler"
+        :style="{ 'font-size': '15px' }"
+      >
         <div slot-scope="{ node, data }">
           <div>name: {{ data.label }}</div>
           <div>path: {{ data.path }}</div>
@@ -54,6 +59,7 @@ export default {
           name: 'Tab-1',
           mode: 'javascript',
           option: this.getEditorOption('javascript'),
+          picSrc: '/app.png',
         },
       ],
       currentEditor: {
@@ -69,9 +75,10 @@ export default {
   methods: {
     addTab() {
       this.editorConfigs.push({
-        name: 'Tab-0',
+        name: 'Tab-New',
         mode: 'text/html',
         option: this.getEditorOption('text/html'),
+        picSrc: '/app.png',
       });
     },
     removeTab() {},
@@ -343,6 +350,28 @@ export default {
       console.log(codingType);
       this.changeCoding(codingType);
     });
+  },
+  mounted() {
+    const _this = this;
+    document.onkeydown = function(event) {
+      const key = window.event.keyCode;
+      if (key === 79 && event.ctrlKey) {
+        window.event.preventDefault(); // 关闭浏览器快捷键
+        _this.fileOp('Open...');
+      }
+      if (key === 83 && event.ctrlKey) {
+        window.event.preventDefault(); // 关闭浏览器快捷键
+        _this.fileOp('Save');
+      }
+      if (key === 78 && event.ctrlKey) {
+        window.event.preventDefault(); // 关闭浏览器快捷键
+        _this.fileOp('New');
+      }
+      if (key === 68 && event.ctrlKey) {
+        window.event.preventDefault(); // 关闭浏览器快捷键
+        _this.fileOp('Save as');
+      }
+    };
   },
 };
 </script>

@@ -3,12 +3,11 @@
     {
       "label": "File",
       "submenu": [
-        { "label": "New", "type": "file" },
-        { "label": "Open...", "type": "file" },
+        { "label": "New", "type": "file", "accelerator": "Ctrl+N" },
+        { "label": "Open...", "type": "file", "accelerator": "Ctrl+O" },
         { "label": "Open folder", "type": "file" },
-        { "label": "Save", "type": "file" },
-        { "label": "Save as", "type": "file" },
-        { "label": "Quit", "type": "file" }
+        { "label": "Save", "type": "file", "accelerator": "Ctrl+S" },
+        { "label": "Save as", "type": "file", "accelerator": "Ctrl+D" }
       ]
     },
     {
@@ -27,7 +26,6 @@
         { "label": "utf8", "type": "coding" }
       ]
     },
-    { "label": "Help", "submenu": [{ "label": "About" }] },
     {
       "label": "Router",
       "submenu": [

@@ -90,7 +90,7 @@ export default {
     handleChange(message) {
       const [val, type] = message;
 
-      if (type === 'text/html') {
+      if (type === 'html') {
         this.html_value = val;
       } else if (type === 'javascript') {
         this.js_value = val;
@@ -171,7 +171,7 @@ export default {
       this.setPrecoding(to);
     },
     getPath() {
-      if (this.focusedEditor === 'text/html') {
+      if (this.focusedEditor === 'html') {
         return this.html_path;
       }
       if (this.focusedEditor === 'javascript') {
@@ -180,7 +180,7 @@ export default {
       return this.css_path;
     },
     setPath(path) {
-      if (this.focusedEditor === 'text/html') {
+      if (this.focusedEditor === 'html') {
         this.html_path = path;
       } else if (this.focusedEditor === 'javascript') {
         this.js_path = path;
@@ -189,7 +189,7 @@ export default {
       }
     },
     setValue(value) {
-      if (this.focusedEditor === 'text/html') {
+      if (this.focusedEditor === 'html') {
         this.html_value = value;
       } else if (this.focusedEditor === 'javascript') {
         this.js_value = value;
@@ -198,7 +198,7 @@ export default {
       }
     },
     getValue() {
-      if (this.focusedEditor === 'text/html') {
+      if (this.focusedEditor === 'html') {
         return this.html_value;
       }
       if (this.focusedEditor === 'javascript') {
@@ -210,7 +210,7 @@ export default {
       return null;
     },
     setCoding(coding) {
-      if (this.focusedEditor === 'text/html') {
+      if (this.focusedEditor === 'html') {
         this.html_coding = coding;
       } else if (this.focusedEditor === 'javascript') {
         this.js_coding = coding;
@@ -219,7 +219,7 @@ export default {
       }
     },
     setPrecoding(coding) {
-      if (this.focusedEditor === 'text/html') {
+      if (this.focusedEditor === 'html') {
         this.html_precoding = coding;
       } else if (this.focusedEditor === 'javascript') {
         this.js_precoding = coding;
@@ -228,7 +228,7 @@ export default {
       }
     },
     getCoding() {
-      if (this.focusedEditor === 'text/html') {
+      if (this.focusedEditor === 'html') {
         return this.html_coding;
       }
       if (this.focusedEditor === 'javascript') {
@@ -240,7 +240,7 @@ export default {
       return null;
     },
     getPrecoding() {
-      if (this.focusedEditor === 'text/html') {
+      if (this.focusedEditor === 'html') {
         return this.html_precoding;
       }
       if (this.focusedEditor === 'javascript') {
@@ -284,7 +284,7 @@ export default {
     });
     this.$bus.$off('changefocus'); // 更新当前
     this.$bus.$on('changefocus', (message) => {
-      console.log(message);
+      console.log('changefocus', message);
       this.focusedEditor = message;
     });
     this.$bus.$off('coding'); // 切换编码
