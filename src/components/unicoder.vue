@@ -68,21 +68,10 @@ export default {
         classContainersCM[i].style.display = 'none';
       }
       domContainerCM.style.display = 'block';
-      this.currentTab = idContainerCM;
+      this.currentTab = domContainerCM;
     },
     onEditorReady(editor) {
       console.log('the editor is readied!', editor);
-    },
-    onEditorFocus(editor) {
-      console.log('the editor is focus!', editor);
-    },
-    onEditorCodeChange(newCode) {
-      // console.log('this is new code', newCode);
-      // console.log('this is type', editorType);
-      // this.code = newCode;
-      const editorType = this.kindWrapper;
-
-      this.$emit('change', [newCode, editorType]);
     },
   },
   computed: {

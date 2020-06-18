@@ -142,22 +142,6 @@ export default {
       return this.$refs.myEditor.editor;
     },
   },
-  beforemounted() {
-    // console.log('this is current editor object', this.editor)
-    // you can use this.editor to do something...
-    console.log(this.kindWrapper);
-    this.kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
-  },
-  mounted() {
-    // console.log('this is current editor object', this.editor)
-    // you can use this.editor to do something...
-    console.log(this.kindWrapper);
-    this.kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
-  },
-  created() {
-    console.log(this.kindWrapper);
-    this.kindWrapper = this.kind === 'html' ? 'text/html' : this.kind;
-  },
 };
 </script>
 

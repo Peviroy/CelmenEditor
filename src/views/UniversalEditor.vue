@@ -23,12 +23,6 @@ import universalEditor from '@/components/unicoder.vue';
 export default {
   name: 'UniversalEditor',
 
-  // :value="js_value"
-  // @change="handleChange"
-  // slot="left-pane-javascript"
-  // :kind="'javascript'"
-  // :labelSrc="require('@/assets/icons/javascript.svg')"
-
   components: {
     Folder,
     codeSplitter,
@@ -135,6 +129,24 @@ export default {
       });
       return _nameTabs;
     },
+  },
+  created() {
+    this.$bus.$off('file'); // 收到file下某个选项的点击
+    this.$bus.$on('file', (message) => {
+      console.log(message);
+      this.fileOp(message);
+    });
+    this.$bus.$off('changefocus'); // 更新当前
+    this.$bus.$on('changefocus', (message) => {
+      console.log(message);
+      this.focusedEditor = message;
+    });
+    this.$bus.$off('coding'); // 切换编码
+    this.$bus.$on('coding', (message) => {
+      console.log(message);
+      this.setCoding(message);
+      this.changeCoding();
+    });
   },
 };
 </script>
