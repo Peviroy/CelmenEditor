@@ -142,14 +142,13 @@ export default {
       return this.$refs.myEditor.editor;
     },
   },
-
 };
 </script>
 
 <style>
 .coder-editor {
   max-width: 100%;
-  height: inherit;
+  height: 32.3vh;
 }
 
 .coder-editor__label {

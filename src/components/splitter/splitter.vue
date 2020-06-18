@@ -12,7 +12,7 @@
     <div class="left-pane code-splitter-pane" :style="{ width: percent + '%', minWidth: leftMinWidth + 'px' }">
       <ul>
         <li v-for="(item, index) in leftPaneList" :key="index">
-          <div class="wrapper" :style="{ height: 32.3 + 'vh' }">
+          <div class="wrapper">
             <slot :name="`left-pane-${item.kind}`"></slot>
           </div>
         </li>
@@ -121,10 +121,6 @@ export default {
     },
     cursor() {
       return this.active ? 'ew-resize' : '';
-    },
-    averageHeight() {
-      console.log(90 / this.leftPaneList.length);
-      return 90 / this.leftPaneList.length;
     },
   },
   methods: {
