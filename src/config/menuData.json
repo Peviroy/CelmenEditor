@@ -3,8 +3,10 @@
     {
       "label": "File",
       "submenu": [
+        { "label": "New" },
         { "label": "Open...", "accelerator": "Ctrl+O" },
-        { "label": "Save as", "submenu": [{ "label": "xml" }, { "label": "json" }, { "label": "csv" }] },
+        { "label": "Save" },
+        { "label": "Save as" },
         { "label": "Quit", "accelerator": "Ctrl+Q" }
       ]
     },
@@ -15,6 +17,13 @@
         { "label": "Copy", "accelerator": "Ctrl+C" },
         { "label": "Paste", "accelerator": "Ctrl+V" },
         { "label": "Search...", "accelerator": "Ctrl+F" }
+      ]
+    },
+    {
+      "label": "Coding",
+      "submenu": [
+        { "label": "gbk", "type": "coding" },
+        { "label": "utf8", "type": "coding" }
       ]
     },
     { "label": "Help", "submenu": [{ "label": "About" }] },

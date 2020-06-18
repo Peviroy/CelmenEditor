@@ -42,6 +42,12 @@ export default {
       if (event.item.label.substring(0, 6) === 'route-') {
         const routeDir = event.item.label.substring(6);
         this.$emit('route', routeDir);
+      } else if (event.item.type === 'coding') {
+        console.log('emit coding');
+        this.$bus.$emit('coding', event.item.label);
+      } else {
+        console.log('emit file');
+        this.$bus.$emit('file', event.item.label);
       }
     },
   },

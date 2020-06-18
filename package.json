@@ -19,6 +19,7 @@
     "codemirror": "^5.54.0",
     "core-js": "^3.6.5",
     "htmlhint": "^0.14.0",
+    "iconv-lite": "^0.6.0",
     "marked": "^1.1.0",
     "vue": "^2.6.11",
     "vue-electron-folder": "^1.0.3",

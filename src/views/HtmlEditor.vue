@@ -40,6 +40,11 @@ import codeEditor from '@/components/coder.vue';
 import codePreview from '@/components/preview.vue';
 import codeSplitter from '@/components/splitter/splitter.vue';
 
+const { dialog } = window.require('electron').remote;
+// const { ipcRenderer } = require('electron')
+const fs = require('fs');
+const iconv = require('iconv-lite');
+
 export default {
   name: 'Coder',
 
@@ -51,9 +56,18 @@ export default {
 
   data() {
     return {
+      html_precoding: 'utf8',
+      js_precoding: 'utf8',
+      css_precoding: 'utf8',
+      html_coding: 'utf8',
+      js_coding: 'utf8',
+      css_coding: 'utf8',
       html_value: '',
       js_value: '',
       css_value: '',
+      html_path: '',
+      js_path: '',
+      csspath: '',
       editorList: [
         {
           kind: 'html',
@@ -74,8 +88,6 @@ export default {
   methods: {
     handleChange(message) {
       const [val, type] = message;
-      console.log('receivemessage', message);
-      console.log('receivevalue', val);
 
       if (type === 'text/html') {
         this.html_value = val;
@@ -90,6 +102,153 @@ export default {
     },
     handleResizeEnd() {
       this.$refs.preview.hideSize();
+    },
+    fileOp(type) {
+      console.log(type);
+      switch (type) {
+        case 'New': {
+          this.setPath('');
+          this.setValue('');
+          break;
+        }
+        case 'Open...': {
+          const filename = dialog.showOpenDialogSync({
+            title: 'Open...',
+            filters: [
+              { name: 'HTML/JS/CSS', extensions: ['html', 'htm', 'js', 'css'] },
+              { name: 'All Files', extensions: ['*'] },
+            ],
+            properties: ['openFile', 'multiSelections'],
+          });
+          console.log(filename[0]);
+          const path = filename[0];
+          const content = fs.readFileSync(path, 'utf8');
+          console.log(this.focusedEditor);
+          this.setValue(content);
+          this.setPath(path);
+          this.setPrecoding('utf8');
+          break;
+        }
+        case 'Save': {
+          const path = this.getPath();
+          const content = this.getValue();
+          if (path === '') {
+            this.saveAs();
+          } else {
+            const code = iconv.encode(content, this.getPrecoding());
+            console.log(content);
+            fs.writeFileSync(path, code, 'utf8');
+          }
+          break;
+        }
+        case 'Save as': {
+          this.saveAs();
+          break;
+        }
+        default:
+          break;
+      }
+    },
+    saveAs() {
+      const options = {
+        title: '保存文件',
+        filters: [{ name: 'html/css/js', extensions: ['html', 'css', 'js'] }],
+      };
+      const path = dialog.showSaveDialogSync(options);
+      console.log('save as path: ', path);
+      this.setPath(path);
+      this.fileOp('Save');
+    },
+    changeCoding() {
+      const from = this.getPrecoding();
+      const to = this.getCoding();
+      console.log('from coding: ', this.getPrecoding(), 'to coding', this.getCoding());
+      let content = this.getValue();
+      const code = iconv.encode(content, from);
+      content = iconv.decode(code, to);
+      this.setValue(content);
+      this.setPrecoding(to);
+    },
+    getPath() {
+      if (this.focusedEditor === 'text/html') {
+        return this.html_path;
+      }
+      if (this.focusedEditor === 'javascript') {
+        return this.js_path;
+      }
+      return this.css_path;
+    },
+    setPath(path) {
+      if (this.focusedEditor === 'text/html') {
+        this.html_path = path;
+      } else if (this.focusedEditor === 'javascript') {
+        this.js_path = path;
+      } else if (this.focusedEditor === 'css') {
+        this.css_path = path;
+      }
+    },
+    setValue(value) {
+      if (this.focusedEditor === 'text/html') {
+        this.html_value = value;
+      } else if (this.focusedEditor === 'javascript') {
+        this.js_value = value;
+      } else if (this.focusedEditor === 'css') {
+        this.css_value = value;
+      }
+    },
+    getValue() {
+      if (this.focusedEditor === 'text/html') {
+        return this.html_value;
+      }
+      if (this.focusedEditor === 'javascript') {
+        return this.js_value;
+      }
+      if (this.focusedEditor === 'css') {
+        return this.css_value;
+      }
+      return null;
+    },
+    setCoding(coding) {
+      if (this.focusedEditor === 'text/html') {
+        this.html_coding = coding;
+      } else if (this.focusedEditor === 'javascript') {
+        this.js_coding = coding;
+      } else if (this.focusedEditor === 'css') {
+        this.css_coding = coding;
+      }
+    },
+    setPrecoding(coding) {
+      if (this.focusedEditor === 'text/html') {
+        this.html_precoding = coding;
+      } else if (this.focusedEditor === 'javascript') {
+        this.js_precoding = coding;
+      } else if (this.focusedEditor === 'css') {
+        this.css_precoding = coding;
+      }
+    },
+    getCoding() {
+      if (this.focusedEditor === 'text/html') {
+        return this.html_coding;
+      }
+      if (this.focusedEditor === 'javascript') {
+        return this.js_coding;
+      }
+      if (this.focusedEditor === 'css') {
+        return this.css_coding;
+      }
+      return null;
+    },
+    getPrecoding() {
+      if (this.focusedEditor === 'text/html') {
+        return this.html_precoding;
+      }
+      if (this.focusedEditor === 'javascript') {
+        return this.js_precoding;
+      }
+      if (this.focusedEditor === 'css') {
+        return this.css_precoding;
+      }
+      return null;
     },
   },
 
@@ -114,6 +273,25 @@ export default {
       console.log(template);
       return template;
     },
+  },
+
+  created() {
+    this.$bus.$off('file'); // 收到file下某个选项的点击
+    this.$bus.$on('file', (message) => {
+      console.log(message);
+      this.fileOp(message);
+    });
+    this.$bus.$off('changefocus'); // 更新当前
+    this.$bus.$on('changefocus', (message) => {
+      console.log(message);
+      this.focusedEditor = message;
+    });
+    this.$bus.$off('coding'); // 切换编码
+    this.$bus.$on('coding', (message) => {
+      console.log(message);
+      this.setCoding(message);
+      this.changeCoding();
+    });
   },
 };
 </script>

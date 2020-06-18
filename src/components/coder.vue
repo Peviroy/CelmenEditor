@@ -53,6 +53,8 @@ export default {
     },
     onEditorFocus(editor) {
       console.log('the editor is focus!', editor);
+      console.log('focus editor type', this.kindWrapper);
+      this.$bus.$emit('changefocus', this.kindWrapper);
     },
     onEditorCodeChange(newCode) {
       // console.log('this is new code', newCode);
