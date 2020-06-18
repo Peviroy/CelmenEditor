@@ -10,6 +10,8 @@ import 'codemirror/theme/material.css';
 import 'codemirror/mode/htmlembedded/htmlembedded.js';
 import 'codemirror/mode/css/css.js';
 import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/mode/clike/clike.js';
+import 'codemirror/mode/python/python.js';
 
 import 'codemirror/addon/fold/foldgutter.css';
 import 'codemirror/addon/fold/foldgutter.js';
@@ -54,9 +56,9 @@ import 'codemirror/addon/edit/matchbrackets.js';
 import 'codemirror/addon/display/panel.js';
 
 // import 'codemirror-revisedsearch'
-import './src/advancedsearch/advanced-dialog.js';
-import './src/advancedsearch/advanced-dialog.css';
-import './src/advancedsearch/revised-search.js';
+// import './src/advancedsearch/advanced-dialog.js';
+// import './src/advancedsearch/advanced-dialog.css';
+// import './src/advancedsearch/revised-search.js';
 
 export default {
   name: 'codeMirror',

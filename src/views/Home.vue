@@ -6,9 +6,6 @@
       <router-link to="/fronter" :style="{ 'pointer-events': 'none', cursor: 'default' }">
         <router-button :innerstyle="{ 'pointer-events': 'auto', cursor: 'pointer' }">Codepen</router-button>
       </router-link>
-      <router-link to="/about" :style="{ 'pointer-events': 'none', cursor: 'default' }">
-        <router-button :innerstyle="{ 'pointer-events': 'auto', cursor: 'pointer' }">About</router-button>
-      </router-link>
       <router-link to="/markdown" :style="{ 'pointer-events': 'none', cursor: 'default' }">
         <router-button :innerstyle="{ 'pointer-events': 'auto', cursor: 'pointer' }">Markdown</router-button>
       </router-link>

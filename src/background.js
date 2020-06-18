@@ -21,8 +21,8 @@ function createWindow() {
   // Create the browser window.
 
   win = new BrowserWindow({
-    width: 1200,
-    height: 700,
+    width: 1600,
+    height: 1000,
     center: true, // appear in the center
     resizable: true,
     frame: true, // 窗口边界, set true temporay;
@@ -54,6 +54,7 @@ function createWindow() {
   win.on('closed', () => {
     win = null;
   });
+  win.maximizable();
   // Menu.setApplicationMenu(null); // 取消菜单栏
 }
 

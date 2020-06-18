@@ -128,10 +128,10 @@ export default {
         mode.name = 'text/x-c++src';
         picSrc += 'cpp.svg';
       } else if (appendix === 'java') {
-        mode.name = 'text/x-java ';
+        mode.name = 'text/x-java';
         picSrc += 'java.svg';
       } else if (appendix === 'py') {
-        mode.name = 'text/x-python.';
+        mode.name = 'text/x-python';
         picSrc += 'python.svg';
       } else {
         mode.name = null;
