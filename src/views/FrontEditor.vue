@@ -11,22 +11,22 @@
         :value="html_value"
         @change="handleChange"
         slot="left-pane-html"
-        :kind="'html'"
-        :labelSrc="require('@/assets/icons/html.svg')"
+        :kind="editorList[0].kind"
+        :labelSrc="editorList[0].labelSrc"
       ></code-editor>
       <code-editor
         :value="js_value"
         @change="handleChange"
         slot="left-pane-javascript"
-        :kind="'javascript'"
-        :labelSrc="require('@/assets/icons/javascript.svg')"
+        :kind="editorList[1].kind"
+        :labelSrc="editorList[1].labelSrc"
       ></code-editor>
       <code-editor
         :value="css_value"
         @change="handleChange"
         slot="left-pane-css"
-        :kind="'css'"
-        :labelSrc="require('@/assets/icons/css.svg')"
+        :kind="editorList[2].kind"
+        :labelSrc="editorList[2].labelSrc"
       ></code-editor>
       <code-preview :value="render_value" slot="right-pane" ref="preview"></code-preview>
     </code-splitter>
@@ -35,6 +35,7 @@
 
 <script>
 /* eslint-disable no-useless-escape */
+/* eslint-disable global-require */
 
 import codeEditor from '@/components/coder.vue';
 import codePreview from '@/components/preview.vue';
@@ -71,15 +72,15 @@ export default {
       editorList: [
         {
           kind: 'html',
-          labelSrc: '@/assets/icons/html.svg',
+          labelSrc: '/fileIcon/html.svg',
         },
         {
           kind: 'javascript',
-          labelSrc: '../assets/icons/html.svg',
+          labelSrc: '/fileIcon/javascript.svg',
         },
         {
           kind: 'css',
-          labelSrc: '@/assets/icons/html.svg',
+          labelSrc: '/fileIcon/css.svg',
         },
       ],
     };
