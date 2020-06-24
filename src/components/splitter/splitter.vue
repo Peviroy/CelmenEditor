@@ -10,9 +10,9 @@
   >
     <!-- left -->
     <div class="left-pane code-splitter-pane" :style="{ width: percent + '%', minWidth: leftMinWidth + 'px' }">
-      <ul>
-        <li v-for="(item, index) in leftPaneList" :key="index">
-          <div class="wrapper">
+      <ul :style="{ height: 'inherit' }">
+        <li v-for="(item, index) in leftPaneList" :key="index" :style="{ height: meanHeight }">
+          <div class="wrapper" :style="{ height: '100%' }">
             <slot :name="`left-pane-${item.kind}`"></slot>
           </div>
         </li>
@@ -36,7 +36,7 @@
 
 <style>
 .code-splitter {
-  height: 100vh;
+  height: 100%;
   display: flex;
   z-index: 174;
 }
@@ -121,6 +121,9 @@ export default {
     },
     cursor() {
       return this.active ? 'ew-resize' : '';
+    },
+    meanHeight() {
+      return `calc(100% / ${this.leftPaneList.length})`;
     },
   },
   methods: {

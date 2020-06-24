@@ -54,7 +54,7 @@ function createWindow() {
   win.on('closed', () => {
     win = null;
   });
-  win.maximizable();
+  win.maximize();
   // Menu.setApplicationMenu(null); // 取消菜单栏
 }
 

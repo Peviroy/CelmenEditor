@@ -19,8 +19,8 @@
         :options="config.option"
         :id="'container-' + nameTabs[i].id"
         :key="'container-' + i"
-        class="coder-editor__document"
         :code="code"
+        :codemirrorStyle="codemirrorStyle"
         @ready="onEditorReady"
         @focus="onEditorFocus"
         @change="onEditorCodeChange"
@@ -54,6 +54,12 @@ export default {
   data() {
     return {
       currentTab: '',
+      codemirrorStyle: {
+        height: '100%',
+        textAlign: 'left',
+        fontSize: '16px',
+        zIndex: '0',
+      },
     };
   },
 
@@ -105,6 +111,7 @@ export default {
 <style>
 .universal-editor {
   position: relative;
+  height: inherit;
 }
 
 .label-container {
@@ -112,6 +119,7 @@ export default {
   top: 0;
   width: 100%;
   background: #212429;
+  height: 50px;
 }
 
 .label-container .file-info {
@@ -191,14 +199,11 @@ export default {
   position: absolute;
   top: 50px;
   width: 100%;
-  height: 100vh;
+  height: calc(100% - 50px);
 }
 
 /* specially for codemirror */
 .CodeMirror {
-  height: calc(100% - 32px);
-  text-align: left;
-  font-size: 16px;
-  z-index: 0;
+  height: 100%;
 }
 </style>

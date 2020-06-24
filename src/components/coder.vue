@@ -13,6 +13,8 @@
       ref="myEditor"
       :code="code"
       :options="editorOptions"
+      :codemirrorStyle="codemirrorStyle"
+      :id="id"
       @ready="onEditorReady"
       @focus="onEditorFocus"
       @change="onEditorCodeChange"
@@ -37,12 +39,19 @@ export default {
     },
     value: [String, Document],
     kind: String,
+    id: String,
   },
 
   data() {
     return {
       editorOptions: this.getEditorOption(),
       label_height: 30,
+      codemirrorStyle: {
+        height: 'calc(100% - 32px)',
+        textAlign: 'left',
+        fontSize: '16px',
+        zIndex: '0',
+      },
     };
   },
 
@@ -145,10 +154,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .coder-editor {
   max-width: 100%;
-  height: 32.3vh;
+  height: 100%;
 }
 
 .coder-editor__label {
@@ -191,9 +200,6 @@ export default {
 
 /* specially for codemirror */
 .CodeMirror {
-  height: calc(100% - 32px);
-  text-align: left;
-  font-size: 16px;
-  z-index: 0;
+  height: 100%;
 }
 </style>

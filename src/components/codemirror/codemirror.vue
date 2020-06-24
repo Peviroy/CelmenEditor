@@ -1,5 +1,7 @@
 <template>
-  <textarea :id="id"></textarea>
+  <div :style="codemirrorStyle">
+    <textarea :id="id"></textarea>
+  </div>
 </template>
 
 <script>
@@ -78,15 +80,22 @@ export default {
     id: {
       type: String,
       default: 'codemirror-area-0',
+      required: true,
     },
     show: {
       type: Boolean,
       default: true,
     },
+    codemirrorStyle: {
+      type: Object,
+    },
   },
   mounted() {
     var _this = this;
-    this.editor = CodeMirror.fromTextArea(this.$el, this.options);
+    this.editor = CodeMirror.fromTextArea(this.$el.firstElementChild, this.options);
+
+    console.log('catch editor object', this.editor);
+
     // this.editor = new CodeMirror(document.getElementById(this.id), this.options);
 
     const filterCode = this.removeScriptTag(this.code || this.value || this.content);

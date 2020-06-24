@@ -54,4 +54,9 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+/* 32px--menubar height */
+#routerview {
+  height: calc(100% - 32px);
+}
 </style>

@@ -6,6 +6,7 @@
       @resize="handleResize"
       @resize-end="handleResizeEnd"
       :leftPaneList="editorList"
+
     >
       <code-editor
         :value="html_value"
@@ -13,6 +14,7 @@
         slot="left-pane-html"
         :kind="editorList[0].kind"
         :labelSrc="editorList[0].labelSrc"
+        :id="'codemirror-area-html'"
       ></code-editor>
       <code-editor
         :value="js_value"
@@ -20,6 +22,7 @@
         slot="left-pane-javascript"
         :kind="editorList[1].kind"
         :labelSrc="editorList[1].labelSrc"
+        :id="'codemirror-area-js'"
       ></code-editor>
       <code-editor
         :value="css_value"
@@ -27,6 +30,7 @@
         slot="left-pane-css"
         :kind="editorList[2].kind"
         :labelSrc="editorList[2].labelSrc"
+        :id="'codemirror-area-css'"
       ></code-editor>
       <code-preview :value="render_value" slot="right-pane" ref="preview"></code-preview>
     </code-splitter>
