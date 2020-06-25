@@ -1,19 +1,28 @@
 {
-  "name": "cross-editor-vue-electron",
-  "version": "0.0.0",
+  "name": "celmen-editor",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit",
     "electron:build": "vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "webpack-defaults": "webpack-defaults"
+    "webpack-defaults": "webpack-defaults",
+    "commit": "git-cz",
+    "patch": "npm version patch && git push origin master && git push origin --tags",
+    "minor": "npm version minor && git push origin master && git push origin --tags",
+    "major": "npm version major && git push origin master && git push origin --tags"
   },
   "main": "background.js",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "dependencies": {
     "@joe_kerr/vue-native-menubar": "^0.1.1",
     "codemirror": "^5.54.0",
@@ -25,8 +34,7 @@
     "vue-electron-folder": "^1.0.3",
     "vue-i18n": "^8.18.2",
     "vue-router": "^3.2.0",
-    "vue-scroll": "^2.1.13",
-    "vuex": "^3.4.0"
+    "vue-scroll": "^2.1.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.4.0",
@@ -39,6 +47,8 @@
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
     "cli-service": "^0.0.2",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "3.2.0",
     "electron": "^9.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",

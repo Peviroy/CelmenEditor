@@ -15,6 +15,7 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src'))
       .set('src', resolve('src'))
+      .set('root', resolve('./'))
       .set('common', resolve('src/common'))
       .set('components', resolve('src/components'));
   },
@@ -22,6 +23,16 @@ module.exports = {
     electronBuilder: {
       nodeIntegration: true,
       builderOptions: {
+        productName: 'CelmenEditor',
+        appId: 'top.penguinuniverse.celmeneditor',
+        publish: [
+          {
+            provider: 'github',
+            owner: 'Peviroy',
+            repo: 'CelmenEditor',
+            releaseType: 'draft',
+          },
+        ],
         win: {
           icon: './public/app.ico',
         },
@@ -34,13 +45,4 @@ module.exports = {
       },
     },
   },
-  // configureWebpack: {
-  //   build: {
-  //     electronDownload: {
-  //       quiet: false,
-  //       verifyChecksum: false,
-  //       cache: '~/.cache/electron/',
-  //     },
-  //   },
-  // },
 };
